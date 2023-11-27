@@ -1,0 +1,17 @@
+.button{
+  background-color: transparent;
+  border: none;
+  border: 1px solid gray;
+  border-radius: 7px;
+  padding: 2px  8px;
+  height: 25px ;
+  cursor: pointer;
+  margin-right: 0.5%;
+  color: black;
+  font-weight: 600;
+}
+.disableBtn{
+    opacity: 0.5;
+    cursor: not-allowed;
+
+  }
