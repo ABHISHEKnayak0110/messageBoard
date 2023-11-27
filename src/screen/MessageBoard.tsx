@@ -73,7 +73,7 @@ const handleDeleteApiCall = async(id :string) => {
   
  
     const OnClickDeleteAll =() => {
-        console.log("hey") 
+        toast.error("Api needed")
     }
 
   const handleSortByTimestamp = () =>  {

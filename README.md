@@ -28,10 +28,10 @@ The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
 ### How to Use
-# Open the application in your web browser.
-# Write your text message in the input box.
-# Click the "Post" button to publish your message.
-# If there are multiple messages, a scroll bar will appear in the message container,  allowing you to navigate through them.
+ 1. Open the application in your web browser.
+ 2. Write your text message in the input box.
+ 3. Click the "Post" button to publish your message.
+ 4. If there are multiple messages, a scroll bar will appear in the message container,  allowing you to navigate through them.
 
 
 
