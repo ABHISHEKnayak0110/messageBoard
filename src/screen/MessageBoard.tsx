@@ -67,7 +67,7 @@ const handleDeleteApiCall = async(id :string) => {
 
  /**Onchange Input */
     const handleChangeInput =(e:any) => {
-      const data = e?.target?.value?.trim()
+      const data = e?.target?.value
        setInputText(data)
     }
   
