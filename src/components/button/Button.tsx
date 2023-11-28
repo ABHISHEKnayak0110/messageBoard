@@ -6,7 +6,6 @@ interface buttonProps{
     disable ?: boolean
 }
 function Button(props: buttonProps) {
-    console.log("hh" , props.disable )
   return (
    <button
    className={`${style.button} ${props.extraStyle} ${props.disable ? style.disableBtn : ""}`}

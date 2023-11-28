@@ -18,9 +18,12 @@ function MessageBoard() {
 }
     /**Api Call **/
   const getMessageApiCall = async () => {
-    
-    const data = await axios.get(url ,{ headers: headers })
-    setAllMessage(data?.data)
+    try{
+      const data = await axios.get(url ,{ headers: headers })
+      setAllMessage(data?.data)
+    }catch(err){
+     toast.error("Get Api Error")
+    }
   }
 
 /**hitting Api for first Time  **/
@@ -33,14 +36,11 @@ useEffect(
 /** Post Api Call */
 
 const handlePostApiCall = async() => {
-    console.log("hello")
     if(inputeText?.length){
     const body ={
         text : inputeText
     }
-    console.log("hello")
     try{
-        console.log("hello")
         const data = await axios.post(url ,body, { headers: headers} )
         setInputText("")
         toast.success("Message Posted Successfully")
@@ -55,7 +55,6 @@ const handlePostApiCall = async() => {
 /**Delete Api Call */
 const handleDeleteApiCall = async(id :string) => {
     try{
-        console.log("hello")
         const data = await axios.delete(`${url}${id}/` , { headers: headers} )
         toast.success("Message Deleted Successfully")
         getMessageApiCall()
@@ -71,25 +70,33 @@ const handleDeleteApiCall = async(id :string) => {
        setInputText(data)
     }
   
- 
-    const OnClickDeleteAll =() => {
-        toast.error("Api needed")
+  /**for delete All */
+    const OnClickDeleteAll =async() => {
+      try{
+      const data = await Promise.all(
+        allMessage?.map(async(messages :any) => {
+         await  axios.delete(`${url}${messages?.id}/` , { headers: headers} )
+        })
+      )
+      toast.success("Delete All Successfully")
+      getMessageApiCall()
+      }catch(err){
+         console.log(err)
+         toast.error("Delete All Error")
+      }
     }
 
   const handleSortByTimestamp = () =>  {
-         console.log("click")
         const sortedData = allMessage.sort((a:any, b :any) => {
           const timestampA = new Date(a.timestamp).getTime();
           const timestampB = new Date(b.timestamp).getTime();
       
           return sortIncrease ?  timestampB - timestampA : timestampA - timestampB ;
         });
-        console.log("click" , sortedData)
         setSortIncrease(prev => !prev)
         setAllMessage([...sortedData])
       }
       
-   console.log("all" , allMessage , sortIncrease)
   return (
    <div className={style.messageBoardWrapper}>
     <h1>Chatter</h1>
@@ -104,6 +111,7 @@ const handleDeleteApiCall = async(id :string) => {
          />
         <Button 
         name ={"Delete All"} 
+        disable ={allMessage?.length ===0 }
         extraStyle={style.deleteBtn} 
         onChange={OnClickDeleteAll}
         />
